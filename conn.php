@@ -1,7 +1,7 @@
 <?php
 // Thông tin kết nối cơ sở dữ liệu
 $host = 'localhost';
-$dbname = 'webshop';
+$dbname = 'bookstore';
 $usernamedb = 'root';
 $passworddb = '';
 

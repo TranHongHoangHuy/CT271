@@ -43,12 +43,12 @@ ob_start();
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php"><img src="../ASSETS/IMG/Senza-titolo-1.png" height="50" alt="">MacShop</a>
+            <a class="navbar-brand" href="../index.php"><img src="../ASSETS/IMG/Logo_2.png" height="50" alt="">BooksStore</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav mx-auto">
+                <!-- <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="../index.php">Mac</a>
                     </li>
@@ -61,19 +61,25 @@ ob_start();
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="../about.php">About</a>
                     </li>
-                </ul>
+                </ul> -->
+                <!-- Search Bar -->
+                <form class="d-flex mx-auto custom-search-form">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
                 <ul class="navbar-nav mx=0">
                     <?php
                     session_start();
                     if (isset($_SESSION['username'])) { // Kiểm tra session
-                        echo '<li class="nav-item mx-3">
+                        echo '<li class="nav-item mx-2">
                                 <a class="nav-link" href="../PHP/logout.php"><i class="fa-solid fa-sign-out"></i></a></li>';
                     } else {
-                        echo '<li class="nav-item mx-3">
+                        echo '<li class="nav-item mx-2">
                                 <a class="nav-link" href="../login.php"><i class="fa-solid fa-user"></i></a></li>';
                     }
                     ?>
-                    <li class="nav-item">
+                    <li class="nav-item mx-2">
                         <a class="nav-link" href="../shopping.php"><i class="fa-solid fa-cart-shopping"></i></i></a>
                     </li>
                 </ul>

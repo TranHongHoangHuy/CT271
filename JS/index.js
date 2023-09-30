@@ -16,3 +16,12 @@ b.addEventListener("scroll", function () {
 $(document).ready(function () {
   $("#example").DataTable();
 });
+
+// JavaScript để cắt văn bản và thêm dấu "..."
+var titleElement = document.getElementById("productTitle");
+var maxLength = 30; // Độ dài tối đa bạn muốn hiển thị
+var titleText = titleElement.innerText;
+
+if (titleText.length > maxLength) {
+  titleElement.innerText = titleText.substring(0, maxLength) + "...";
+}

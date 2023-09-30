@@ -7,7 +7,7 @@ require './PHP/header.php';
 //     header("Location: ../login.php");
 //     exit();
 // }
-$products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1")->fetchAll(PDO::FETCH_ASSOC);
+$products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAND()")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -34,24 +34,24 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1")->fetchAll(
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <!-- Logo -->
+        <!-- Logo
         <div class="brand">
             <i class="fa-brands fa-apple"></i>
             <span>Mac</span>
-        </div>
+        </div> -->
         <!-- Product -->
         <div class="text-center">
             <div id="gallery" class="row">
                 <?php foreach ($products as $product) { ?>
-                    <div class="col-lg-4 col-md-6 col-sm-12 card product">
+                    <div class="col-lg-2 col-md-3 col-sm-6 card product">
                         <a href="product.php?id_product=<?php echo $product['id_product']; ?>">
                             <div class="card-img">
                                 <img src="<?php echo $product['image_link']; ?>" alt="">
                             </div>
                         </a>
                         <div class="card-info">
-                            <p class="text-title"><?php echo $product['productName']; ?></p>
-                            <p class="text-body"><?php echo $product['productOption']; ?></p>
+                            <p class="text-title productTitle"><?php echo $product['productName']; ?></p>
+
                         </div>
                         <div class="card-footer">
                             <span class="text-title"><?php echo number_format($product['price'], 0, '.', '.'); ?>đ</span>
@@ -151,6 +151,18 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1")->fetchAll(
         //         $('#successModal').modal('hide');
         //     }, 1500);
         // }
+    }
+
+    // JavaScript để cắt văn bản và thêm dấu "..."
+    var titleElements = document.getElementsByClassName("productTitle");
+    var maxLength = 35; // Độ dài tối đa
+    for (var i = 0; i < titleElements.length; i++) {
+        var titleElement = titleElements[i];
+        var titleText = titleElement.innerText;
+
+        if (titleText.length > maxLength) {
+            titleElement.innerText = titleText.substring(0, maxLength) + "...";
+        }
     }
 </script>
 

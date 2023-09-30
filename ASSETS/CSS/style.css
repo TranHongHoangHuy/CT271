@@ -67,6 +67,10 @@ header {
   background-color: var(--black-color-light);
 }
 
+.custom-search-form {
+  min-width: 80%;
+}
+
 .fa-solid {
   font-size: 20px;
 }
@@ -99,9 +103,9 @@ main {
 
 .card {
   width: 315px;
-  height: 550px;
+  /* height: 550px; */
   padding: 10px;
-  margin: 40px 40px;
+  margin: 30px 5px;
   background: var(--card-color);
   position: relative;
   overflow: visible;
@@ -118,17 +122,19 @@ main {
 }
 .card-img img {
   width: 100%;
-  height: 100%;
+  height: 450px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .card-info {
   padding-top: 10%;
-  min-height: 150px;
+  min-height: 100px;
 }
 
 .card-info .text-title {
   min-height: 60px;
+  overflow: hidden;
 }
 
 /* .card-button i {
