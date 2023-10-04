@@ -10,11 +10,13 @@ ob_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js" integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -32,6 +34,7 @@ ob_start();
     <link rel="stylesheet" href="../ASSETS/CSS/style.css">
 
 
+
     <link href="../ASSETS/IMG/favicon.ico" rel="icon" type="image/x-icon" />
     <title>Trang chu</title>
 
@@ -39,6 +42,8 @@ ob_start();
 
 <body>
     <script language="javascript" src="../JS/index.js"></script>
+
+
     <!-- Navbar -->
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -48,24 +53,12 @@ ob_start();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
-                <!-- <ul class="navbar-nav mx-auto">
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="../index.php">Mac</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="../phukien.php">Phụ kiện</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="../care.php">Bảo hành</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="../about.php">About</a>
-                    </li>
-                </ul> -->
                 <!-- Search Bar -->
                 <form class="d-flex mx-auto custom-search-form">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2 " type="text" placeholder="Search" aria-label="Search" id="live_search" autocomplete="off">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                    <!--Kết quả tìm kiếm-->
+                    <div id="searchresult"></div>
                 </form>
 
                 <ul class="navbar-nav mx=0">
@@ -86,5 +79,31 @@ ob_start();
             </div>
         </div>
     </nav>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#live_search").keyup(function() {
+                var input = $(this).val();
+
+                if (input !== "") {
+                    $.ajax({
+                        url: "../PHP/live_search.php",
+                        method: "POST",
+                        data: {
+                            input: input
+                        },
+                        success: function(data) {
+                            console.log("Response:", data);
+                            $("#searchresult").html(data);
+                            $("#searchresult").css("display", "block");
+                        }
+                    });
+                } else {
+                    $("#searchresult").css("display", "none");
+                }
+            });
+        });
+    </script>
 
     <button id="scroll-to-top"><i class="fa-solid fa-arrow-up"></i></button>

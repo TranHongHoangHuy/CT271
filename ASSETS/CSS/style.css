@@ -68,12 +68,42 @@ header {
 }
 
 .custom-search-form {
+  position: relative;
   min-width: 80%;
+}
+#searchresult {
+  margin-top: 2px;
+  display: none;
+  position: absolute;
+  top: 100%; /* Hiển thị ngay dưới ô tìm kiếm */
+  left: 0;
+  z-index: 1000; /* Đảm bảo nó hiển thị trên các phần tử khác */
+  background-color: var(--white-color); /* Màu nền của kết quả tìm kiếm */
+  border: 1px solid var(--white-color-1-dark); /* Viền để phân biệt */
+  border-radius: 5px;
+  max-height: 200px; /* Chiều cao tối đa của kết quả */
+  overflow-y: scroll; /* Cho phép cuộn nếu nó quá cao */
+  width: 100%; /* Đảm bảo rằng nó sẽ chiếm toàn bộ chiều rộng của ô tìm kiếm */
+}
+#searchresult::-webkit-scrollbar {
+  width: 0; /* Ẩn thanh cuộn trên trình duyệt WebKit (Chrome, Safari) */
+}
+
+.list-group-item a {
+  text-decoration: none !important;
+  color: var(--black-color);
+  font-weight: 500;
+}
+
+.list-group-item:hover {
+  background-color: var(--white-color-dark);
+  color: var(--black-color-4-light);
 }
 
 .fa-solid {
   font-size: 20px;
 }
+
 /*End header*/
 main {
   /* background-color: var(--black-color-2-light); */
