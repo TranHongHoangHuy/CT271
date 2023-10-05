@@ -3,10 +3,14 @@ include('../conn.php');
 
 if (isset($_POST['input'])) {
     $input = $_POST['input'];
-    $query = "SELECT * FROM product WHERE productName LIKE '%{$input}%' OR productCode LIKE '{$input}%' OR author LIKE '%{$input}%' 
-    OR ISBN LIKE '{$input}%'";
+    $query = "SELECT * FROM product WHERE productName LIKE :input OR productCode LIKE :inputCode OR author LIKE :inputAuthor OR ISBN LIKE :inputISBN";
     $stmt = $pdo->prepare($query);
+    $stmt->bindValue(':input', '%' . $input . '%', PDO::PARAM_STR);
+    $stmt->bindValue(':inputCode', $input . '%', PDO::PARAM_STR);
+    $stmt->bindValue(':inputAuthor', '%' . $input . '%', PDO::PARAM_STR);
+    $stmt->bindValue(':inputISBN', $input . '%', PDO::PARAM_STR);
     $stmt->execute();
+
 
     if ($stmt->rowCount() > 0) { ?>
         <ul class="list-group mt-4">

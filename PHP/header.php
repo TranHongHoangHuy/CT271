@@ -54,8 +54,8 @@ ob_start();
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
                 <!-- Search Bar -->
-                <form class="d-flex mx-auto custom-search-form">
-                    <input class="form-control me-2 " type="text" placeholder="Search" aria-label="Search" id="live_search" autocomplete="off">
+                <form class="d-flex mx-auto custom-search-form" method="get" action="../search.php">
+                    <input class="form-control me-2 " type="text" placeholder="Search" aria-label="Search" id="live_search" autocomplete="off" name="keyword">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                     <!--Kết quả tìm kiếm-->
                     <div id="searchresult"></div>

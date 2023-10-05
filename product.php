@@ -41,7 +41,11 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
                     <h6 class="producCode">Mã sách: <?php echo $product['productCode'] ?></h6>
                     <h6 class="ISBN">Mã ISBN: <?php echo $product['ISBN'] ?></h6>
                     <h6 class="pageNumber">Số trang: <?php echo $product['pageNumber'] ?></h6>
-                    <h6 class="author">Tác giả: <?php echo $product['author'] ?></h6>
+                    <h6 class="author">Tác giả:
+                        <a href="search.php?keyword=<?php echo urlencode($product['author']); ?>">
+                            <?php echo $product['author']; ?>
+                        </a>
+                    </h6>
                     <h6>Số lượng:</h6>
                     <div class="quantity-selector">
                         <button class="btn btn-primary quantity-btn" onclick="decrement()">-</button>

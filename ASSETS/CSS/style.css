@@ -89,6 +89,14 @@ header {
   width: 0; /* Ẩn thanh cuộn trên trình duyệt WebKit (Chrome, Safari) */
 }
 
+.text-search-result {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--white-color);
+  background-color: var(--red-color-4);
+}
+
 .list-group-item a {
   text-decoration: none !important;
   color: var(--black-color);
@@ -423,6 +431,15 @@ main {
   padding-bottom: 20px;
 }
 
+.product_detail_b .author a {
+  text-decoration: none;
+  color: var(--red-color-1);
+}
+
+.product_detail_b .author a:hover {
+  color: var(--red-color-4);
+}
+
 .product_detail_b h6 {
   line-height: 2;
 }
@@ -456,6 +473,12 @@ main {
   height: 50px;
   background-color: var(--red-color-4);
   border: 1px solid var(--red-color-4);
+}
+
+.product_detail_b .btn:hover {
+  background-color: var(--red-color-7);
+  border-bottom: 2px solid var(--black-color);
+  border-left: 2px solid var(--black-color);
 }
 
 .product_detail_b .product-list {
