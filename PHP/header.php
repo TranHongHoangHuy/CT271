@@ -41,7 +41,7 @@ ob_start();
 </head>
 
 <body>
-    <script language="javascript" src="../JS/index.js"></script>
+    <script src="../JS/index.js"></script>
 
 
     <!-- Navbar -->

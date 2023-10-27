@@ -24,7 +24,7 @@ if (isset($_GET['keyword'])) {
             <!-- Product -->
             <div class="text-center">
                 <div>
-                    <h1 class='text-search-result'>Kết quả tìm kiếm: <?php echo $keyword; ?></h1>
+                    <h1 class='text-search-result'>KẾT QUẢ TÌM KIẾM: <?php echo $keyword; ?></h1>
                 </div>
                 <div id="gallery" class="row">
                     <?php foreach ($products as $product) { ?>

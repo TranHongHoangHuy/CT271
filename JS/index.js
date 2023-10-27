@@ -1,27 +1,18 @@
-// alert("file còn sống!!!!!!!!!!");
+// Tăng giảm sản phẩm
+function increment() {
+  console.log("Increment is called");
+  var quantityInput = document.getElementById("quantity");
+  var currentQuantity = parseInt(quantityInput.value, 10);
+  quantityInput.value = currentQuantity + 1;
+}
 
-const b = document.querySelector(".product_detail_b");
-const parent = b.parentElement;
-const firstChild = parent.firstElementChild;
+function decrement() {
+  console.log("Decrement is called");
+  var quantityInput = document.getElementById("quantity");
+  var currentQuantity = parseInt(quantityInput.value, 10);
 
-b.addEventListener("scroll", function () {
-  if (b.scrollHeight - b.clientHeight <= b.scrollTop) {
-    parent.scrollTo({
-      top: firstChild.offsetTop,
-      behavior: "smooth",
-    });
+  // Giảm số lượng chỉ khi nó lớn hơn 1
+  if (currentQuantity > 1) {
+    quantityInput.value = currentQuantity - 1;
   }
-});
-
-$(document).ready(function () {
-  $("#example").DataTable();
-});
-
-// JavaScript để cắt văn bản và thêm dấu "..."
-var titleElement = document.getElementById("productTitle");
-var maxLength = 30; // Độ dài tối đa bạn muốn hiển thị
-var titleText = titleElement.innerText;
-
-if (titleText.length > maxLength) {
-  titleElement.innerText = titleText.substring(0, maxLength) + "...";
 }

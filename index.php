@@ -19,10 +19,16 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAN
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="../ASSETS/IMG/slide/IMAC-MACMINI-2400-600-1920x480.jpg" class="d-block w-100" alt="...">
+                    <img src="./ASSETS/IMG/slide/ms_banner_img2.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
-                    <img src="../ASSETS/IMG/slide/Mac-2400-600-1920x480.jpg" class="d-block w-100" alt="...">
+                    <img src="./ASSETS/IMG/slide/ms_banner_img3.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <img src="./ASSETS/IMG/slide/ms_banner_img4.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <img src="./ASSETS/IMG/slide/ms_banner_img5.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -55,9 +61,9 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAN
                         </div>
                         <div class="card-footer">
                             <span class="text-title"><?php echo number_format($product['price'], 0, '.', '.'); ?>đ</span>
-                            <div class="card-button" onclick="getInfo(this)">
+                            <button type="submit" class="card-button" onclick="getInfo(this)">
                                 <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 <?php } ?>
@@ -65,94 +71,9 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAN
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Thông báo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Sản phẩm đã được thêm vào giỏ hàng.
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="alertModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Thông báo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Bạn chỉ được đặt một sản phẩm.Một cái được rồi, nhiều quá nghèo đó!!!!
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </main>
 
 <script>
-    //Get product infomation
-    var products = [];
-
-    function getInfo(cardButton) {
-        var card = cardButton.closest(".card");
-        var img = card.querySelector(".card-img img");
-        var src = img.getAttribute("src");
-
-        var title = card.querySelector(".card-info .text-title").textContent;
-        var body = card.querySelector(".card-info .text-body").textContent;
-
-        var price = card.querySelector(".card-footer .text-title").textContent;
-
-        var info = [src, title, body, price];
-
-        //thêm vào localStorage
-        var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        cartItems.push(info);
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        //Hiển thị modal
-        $('#successModal').modal('show');
-
-        // Ẩn modal
-        setTimeout(function() {
-            $('#successModal').modal('hide');
-        }, 1500);
-
-        // // Kiểm tra trùng lặp
-        // var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        // var isDuplicate = false;
-        // for (var i = 0; i < cartItems.length; i++) {
-        //     if (JSON.stringify(cartItems[i]) === JSON.stringify(info)) {
-        //         isDuplicate = true;
-        //         break;
-        //     }
-        // }
-        // if (isDuplicate) {
-        //     $('#alertModal').modal('show');
-
-        //     // Ẩn modal
-        //     setTimeout(function() {
-        //         $('#alertModal').modal('hide');
-        //     }, 1500);
-        // } else {
-        //     // Thêm vào Local Storage
-        //     cartItems.push(info);
-        //     localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        //     $('#successModal').modal('show');
-
-        //     // Ẩn modal
-        //     setTimeout(function() {
-        //         $('#successModal').modal('hide');
-        //     }, 1500);
-        // }
-    }
-
     // JavaScript để cắt văn bản và thêm dấu "..."
     var titleElements = document.getElementsByClassName("productTitle");
     var maxLength = 35; // Độ dài tối đa
@@ -165,9 +86,5 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAN
         }
     }
 </script>
-
-
-
-
 
 <?php include './PHP/footer.php'; ?>

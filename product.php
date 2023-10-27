@@ -31,7 +31,6 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 </div>
 
-
                 <div class="col-lg-6 product_detail_b">
                     <h2 class="name">
                         <?php echo $product['productName']; ?>
@@ -52,7 +51,7 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
                         <input type="text" class="form-control quantity-input" value="1" id="quantity">
                         <button class="btn btn-primary quantity-btn" onclick="increment()">+</button>
                     </div>
-                    <button type="button" class="btn btn-primary " onclick="addToCart()"><strong>Mua hàng</strong></button>
+                    <button type="submit" class="btn btn-primary " onclick="addToCart(<?php echo $product['id_product']; ?>)"><strong>Mua hàng</strong></button>
                     <ul class="product-list">
                         <li><i class="fa fa-truck"></i> Giao hàng nhanh toàn quốc <a href="#">Xem chi tiết</a></li>
                         <li><i class="fa fa-phone"></i> Tổng đài: 1900.9696.42 (9h00 - 21h00 mỗi ngày)</li>
@@ -61,12 +60,11 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="bottom">
         <div class="container">
             <div class="row">
-
                 <!-- Info -->
                 <div class="col-lg-12 product-info">
                     <div class="product-info-btn">
@@ -107,44 +105,47 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
 <script>
     document.title = "San pham";
 
-    function addToCart() {
-        var img = document.querySelector(".carousel-item.active img");
-        var src = img.getAttribute("src");
+    //Thêm sản phẩm
+    function addToCart(productId) {
+        // Lấy số lượng từ ô input
+        var quantity = document.getElementById('quantity').value;
 
-        var title = document.querySelector(".name").textContent;
-        var body = document.querySelector(".info").textContent;
+        // Kiểm tra xem đã lưu thông tin giỏ hàng trước đó chưa
+        var cartItems = localStorage.getItem('cartItems');
+        if (!cartItems) {
+            // Nếu chưa có thông tin giỏ hàng, tạo một mảng mới
+            cartItems = [];
+        } else {
+            // Nếu đã có thông tin giỏ hàng, chuyển đổi từ JSON sang mảng
+            cartItems = JSON.parse(cartItems);
 
-        var price = document.querySelector(".price").textContent;
+            // Kiểm tra xem sản phẩm với id_product đã tồn tại trong giỏ hàng hay chưa
+            var existingProductIndex = cartItems.findIndex(item => item.productId === productId);
 
-        var info = [src, title, body, price];
+            if (existingProductIndex !== -1) {
+                // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+                cartItems[existingProductIndex].quantity = parseInt(cartItems[existingProductIndex].quantity) + parseInt(quantity);
+            } else {
+                // Nếu sản phẩm chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
+                cartItems.push({
+                    productId: productId,
+                    quantity: quantity
+                });
+            }
+        }
 
-        var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        cartItems.push(info);
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        //Hiển thị modal
+        // Lưu thông tin giỏ hàng vào localStorage
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        // Log nội dung của localStorage ra console để kiểm tra
+        console.log('LocalStorage Content:', localStorage.getItem('cartItems'));
+
+        // alert('Đã thêm sản phẩm vào giỏ hàng thành công!');
         $('#successModal').modal('show');
-
-        // Ẩn modal
         setTimeout(function() {
             $('#successModal').modal('hide');
-        }, 1500);
-    }
+        }, 2000);
 
-    // Tăng giảm sản phẩm 
-    function increment() {
-        var quantityInput = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityInput.value, 10);
-        quantityInput.value = currentQuantity + 1;
-    }
-
-    function decrement() {
-        var quantityInput = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityInput.value, 10);
-
-        // Giảm số lượng chỉ khi nó lớn hơn 1
-        if (currentQuantity > 1) {
-            quantityInput.value = currentQuantity - 1;
-        }
     }
 </script>
 <?php include './PHP/footer.php'; ?>
