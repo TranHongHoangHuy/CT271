@@ -8,7 +8,7 @@ $customers = $pdo->query("SELECT * FROM user")->fetchAll(PDO::FETCH_ASSOC);
 require './admin_header.php'
 ?>
 
-<main style="min-height: 500px;">
+<main style="min-height: 800px;">
     <div class="container mt-5 mb-5">
         <h1 class="text-center"> Thông tin khách hàng</h1>
         <a href="./add_user.php" class="btn btn-primary" style="margin-bottom: 30px;">

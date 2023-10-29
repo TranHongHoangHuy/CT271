@@ -7,7 +7,22 @@ require './PHP/header.php';
 //     header("Location: ../login.php");
 //     exit();
 // }
-$products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAND()")->fetchAll(PDO::FETCH_ASSOC);
+$products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ")->fetchAll(PDO::FETCH_ASSOC);
+//xử lý phân trang
+// Số lượng bản ghi hiển thị trên mỗi trang
+$limit = 8;
+
+// Tính tổng số trang
+$totalPages = ceil(count($products) / $limit);
+
+// Xác định trang hiện tại
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// Xác định vị trí bắt đầu của trang hiện tại
+$paginationStart = ($page - 1) * $limit;
+
+// Lấy chỉ mục của mảng bắt đầu từ $paginationStart và có độ dài $limit
+$currentPageProducts = array_slice($products, $paginationStart, $limit);
 ?>
 
 
@@ -40,15 +55,10 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAN
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <!-- Logo
-        <div class="brand">
-            <i class="fa-brands fa-apple"></i>
-            <span>Mac</span>
-        </div> -->
         <!-- Product -->
         <div class="text-center">
             <div id="gallery" class="row">
-                <?php foreach ($products as $product) { ?>
+                <?php foreach ($currentPageProducts as $product) { ?>
                     <div class="col-lg-2 col-md-3 col-sm-6 card product">
                         <a href="product.php?id_product=<?php echo $product['id_product']; ?>">
                             <div class="card-img">
@@ -69,6 +79,31 @@ $products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAN
                 <?php } ?>
             </div>
         </div>
+        <!--End Product -->
+        <!-- pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <?php if ($page > 1) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo $page - 1; ?>">Previous</a>
+                    </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                    <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <?php if ($page < $totalPages) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo $page + 1; ?>">Next</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+
+        <!--end pagination -->
     </div>
 
 </main>

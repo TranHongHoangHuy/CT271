@@ -13,8 +13,8 @@ $result = $stmt->execute();
 // Kiểm tra kết quả và thông báo cho người dùng
 if ($result) {
     echo "Sản phẩm có ID $id_product đã được xóa.";
-    header('Location: ./admin_prodct.php');
+    header('Location: ./admin_product.php');
 } else {
     echo "Có lỗi xảy ra khi xóa sản phẩm có ID $id_product.";
-    header('Location: ./admin_prodct.php');
+    header('Location: ./admin_product.php');
 }

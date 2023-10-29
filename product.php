@@ -2,6 +2,8 @@
 include './conn.php';
 require './PHP/header.php';
 
+$products = $pdo->query("SELECT * FROM product WHERE id_catalog = 1 ORDER BY RAND() LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+
 $id_product = $_GET['id_product'];
 
 // Lấy thông tin sản phẩm từ bảng product
@@ -10,16 +12,7 @@ $stmt->bindParam(':id_product', $id_product);
 $stmt->execute();
 $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 ?>
-
-<style>
-    .product-info-img img {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
-
 <main>
     <div class="top">
         <div class="container product">
@@ -82,10 +75,51 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="product-info-btn">
                         <button type="button" class="description-button"><span>Đề xuất truyện</span></button>
                     </div>
+                    <!-- Slide -->
+                    <div class="product-recomment-slide">
+                        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <?php foreach ($products as $key => $product) : ?>
+                                    <div class="carousel-item <?php echo $key === 0 ? 'active' : ''; ?>" data-bs-interval="5000">
+                                        <div class="text-center">
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-3 col-sm-6 card product">
+                                                    <a href="product.php?id_product=<?php echo $product['id_product']; ?>">
+                                                        <div class="card-img">
+                                                            <img src="<?php echo $product['image_link']; ?>" alt="">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-info">
+                                                        <p class="text-title productTitle"><?php echo $product['productName']; ?></p>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <span class="text-title"><?php echo number_format($product['price'], 0, '.', '.'); ?>đ</span>
+                                                        <button type="submit" class="card-button" onclick="getInfo(this)">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Slide End -->
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Modal -->
     <div class="modal" id="successModal">
@@ -102,8 +136,38 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
     </div>
 </main>
+
+
 <script>
     document.title = "San pham";
+
+    let items = document.querySelectorAll('.carousel .carousel-item')
+
+    items.forEach((el) => {
+        const minPerSlide = 4
+        let next = el.nextElementSibling
+        for (var i = 1; i < minPerSlide; i++) {
+            if (!next) {
+                // wrap carousel by using first child
+                next = items[0]
+            }
+            let cloneChild = next.cloneNode(true)
+            el.appendChild(cloneChild.children[0])
+            next = next.nextElementSibling
+        }
+    })
+
+    // JavaScript để cắt văn bản và thêm dấu "..."
+    var titleElements = document.getElementsByClassName("productTitle");
+    var maxLength = 35; // Độ dài tối đa
+    for (var i = 0; i < titleElements.length; i++) {
+        var titleElement = titleElements[i];
+        var titleText = titleElement.innerText;
+
+        if (titleText.length > maxLength) {
+            titleElement.innerText = titleText.substring(0, maxLength) + "...";
+        }
+    }
 
     //Thêm sản phẩm
     function addToCart(productId) {
@@ -145,7 +209,6 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
         setTimeout(function() {
             $('#successModal').modal('hide');
         }, 2000);
-
     }
 </script>
 <?php include './PHP/footer.php'; ?>

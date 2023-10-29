@@ -18,7 +18,7 @@ require './admin_header.php'
                 <tr>
                     <th>Ảnh</th>
                     <th>Tên</th>
-                    <th>Option</th>
+                    <th>Tác giả</th>
                     <th>Giá</th>
                     <th>Action</th>
                 </tr>
@@ -28,7 +28,7 @@ require './admin_header.php'
                     <tr>
                         <td><img src="<?php echo $product['image_link']; ?>" style="height: 100px;"></td>
                         <td><?php echo $product['productName']; ?></td>
-                        <td><?php echo $product['productOption']; ?></td>
+                        <td><?php echo $product['author']; ?></td>
                         <td><?php echo $product['price']; ?></td>
                         <td>
                             <form method="post" action="delete_product.php">
@@ -37,10 +37,10 @@ require './admin_header.php'
                                     <i alt="Delete" class="fa fa-trash"> Delete</i>
                                 </button>
                             </form>
-                            <form method="post" action="show_product_detail.php">
+                            <form method="post" action="edit_product.php">
                                 <input type="hidden" name="id_product" value="<?php echo $product['id_product']; ?>">
                                 <button type="submit" class="btn btn-xs btn-primary" name="detail">
-                                    <i alt="Delete" class="fa fa-circle-info"> detail</i>
+                                    <i alt="Delete" class="fa fa-circle-info"> Edit</i>
                                 </button>
                             </form>
                         </td>
@@ -51,7 +51,7 @@ require './admin_header.php'
                 <tr>
                     <th>Ảnh</th>
                     <th>Tên</th>
-                    <th>Option</th>
+                    <th>Tác giả</th>
                     <th>Giá</th>
                     <th>Action</th>
                 </tr>

@@ -2,6 +2,7 @@
 
 include '../conn.php';
 
+
 // Xử lý form đăng nhập
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Lấy giá trị nhập từ form
@@ -19,60 +20,181 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Chuyển hướng đến trang quan ly
     header('Location: ./manager.php');
-    // exit;
+    exit;
   } else {
     // Hiển thị thông báo nếu thông tin đăng nhập sai
     echo "<script>alert('Bạn đã nhập sai thông tin đăng nhập');</script>";
   }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<style media="screen">
+  *,
+  *:before,
+  *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
 
-<head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-  </script>
-  <link rel="stylesheet" href="../ASSETS/CSS/style-admin.css">
+  body {
+    background-color: #080710;
+  }
 
-</head>
+  .background {
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
 
-<body>
+  .background .shape {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+  }
 
-  <div class="page">
-    <div class="container">
-      <div class="left">
-        <div class="login">Đăng nhập</div>
-        <div class="eula">Trang quản lý của webshop<br>admin<br></div>
-        <div class="text-center"><a href="../index.php" style="text-decoration: none; ">Trở về trang chủ</a></div>
-      </div>
-      <div class="right">
-        <svg viewBox="0 0 320 300">
-          <defs>
-            <linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992" x2="307" y2="193.49992" gradientUnits="userSpaceOnUse">
-              <stop style="stop-color:#ff00ff;" offset="0" id="stop876" />
-              <stop style="stop-color:#ff0000;" offset="1" id="stop878" />
-            </linearGradient>
-          </defs>
-          <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
-        </svg>
-        <div class="form">
-          <form action="admin.php" method="post">
+  .shape:first-child {
+    background: linear-gradient(#1845ad,
+        #23a2f6);
+    left: -80px;
+    top: -80px;
+  }
 
-            <label for="uname"><b>Tên đăng nhập</b></label>
-            <input type="text" placeholder="Nhập tên đăng nhập" name="username" required>
+  .shape:last-child {
+    background: linear-gradient(to right,
+        #ff512f,
+        #f09819);
+    right: -30px;
+    bottom: -80px;
+  }
 
-            <label for="psw"><b>Mật khẩu</b></label>
-            <input type="password" placeholder="Nhập mật khẩu" name="password" required>
+  form {
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+  }
 
-            <button class="btn btn-outline-primary mt-2" type="submit" style="height: 50px;">Đăng nhập</button>
+  form * {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+  }
 
-          </form>
-        </div>
-      </div>
-    </div>
+  form h3 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  input {
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  ::placeholder {
+    color: #e5e5e5;
+  }
+
+  button {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #e3e3e3;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .social {
+    margin-top: 30px;
+    display: flex;
+  }
+
+  .social div {
+    background: red;
+    width: 150px;
+    border-radius: 3px;
+    padding: 5px 10px 10px 5px;
+    background-color: rgba(255, 255, 255, 0.27);
+    color: #eaf0fb;
+    text-align: center;
+  }
+
+  .social div:hover {
+    background-color: rgba(255, 255, 255, 0.47);
+  }
+
+  .social .fb {
+    margin-left: 25px;
+  }
+
+  .social i {
+    margin-right: 4px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+</style>
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+<form method="post" action="manager.php">
+  <h3>Đăng Nhập Quản Lý</h3>
+
+  <label for="username">Username</label>
+  <input type="text" placeholder="Tên đăng nhập" id="username" name="username">
+
+  <label for="password">Password</label>
+  <input type="password" placeholder="Mật khẩu" id="password" name="password">
+
+  <button type="submit">Đăng Nhập</button>
+  <div class="social">
+    <a href="../index.php">
+      <div class="go">Trang chủ</div>
+    </a>
+    <div class="fb">Liên hệ</div>
   </div>
-  <script language="javascript" src="../JS/script.js"></script>
-</body>
-
-</html>
+</form>

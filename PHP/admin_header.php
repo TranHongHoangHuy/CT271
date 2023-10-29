@@ -29,7 +29,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./manager.php"><img src="../ASSETS/IMG/Senza-titolo-1.png" height="50" alt="">MacShop</a>
+            <a class="navbar-brand" href="./manager.php"><img src="../ASSETS/IMG/Logo_2.png" height="50" alt="">BookStore</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -42,7 +42,7 @@
                         <a class="nav-link" href="./admin_customer.php">Khách hàng</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="./error.php">Đơn hàng</a>
+                        <a class="nav-link" href="./orders.php">Đơn hàng</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="../index.php">Trang chủ</a>
